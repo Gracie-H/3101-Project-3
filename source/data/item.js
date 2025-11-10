@@ -1,5 +1,3 @@
-// src/data/items.js
-
 // Reasons shown as selectable "clues" before reveal
 export const REASONS = [
     "Text/LOGO distortion",

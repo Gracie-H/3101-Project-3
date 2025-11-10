@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { INITIAL_ITEMS, REASONS } from "./data/items.js";
 
 const COLUMNS = [
@@ -31,7 +31,7 @@ export default function App() {
   useEffect(() => { localStorage.setItem("aionot_placed", JSON.stringify(placed)); }, [placed]);
   useEffect(() => { localStorage.setItem("aionot_revealed", JSON.stringify(revealed)); }, [revealed]);
 
-  // 计算每列清单（按 order 排序）
+  // 每列清单（按 order 排序）
   const columns = useMemo(() => {
     const map = Object.fromEntries(COLUMNS.map(c => [c.id, []]));
     Object.entries(placed).forEach(([id, info]) => {
@@ -41,7 +41,7 @@ export default function App() {
     return map;
   }, [placed]);
 
-  // 已放与得分
+  // 打分
   const totalPlaced = Object.values(placed).filter(p=>p.colId).length;
   const score = useMemo(()=> {
     if (!revealed) return { correct: 0, total: totalPlaced, percent: 0 };
@@ -65,7 +65,6 @@ export default function App() {
     const id = e.dataTransfer.getData("text/plain");
     setPlaced(prev=>{
       const next = { ...prev };
-      // 计算新 order（列末尾）
       const maxOrder = Math.max(-1, ...(Object.values(next)
         .filter(p=>p.colId===colId).map(p=>p.order)));
       next[id] = { ...(next[id]||{}), colId, order: maxOrder+1, reasons: (next[id]?.reasons)||[], notes: (next[id]?.notes)||"" };
@@ -129,19 +128,10 @@ export default function App() {
     });
   }
 
-  function reveal(){
-    setRevealed(true);
-  }
-  function resetReveal(){
-    setRevealed(false);
-  }
-  function clearAll(){
-    setPlaced({});
-    setRevealed(false);
-  }
-  function shufflePalette(){
-    setItems(shuffle(items));
-  }
+  function reveal(){ setRevealed(true); }
+  function resetReveal(){ setRevealed(false); }
+  function clearAll(){ setPlaced({}); setRevealed(false); }
+  function shufflePalette(){ setItems(shuffle(items)); }
 
   function addItem(){
     const title = prompt("图片标题/描述：");
@@ -181,7 +171,6 @@ export default function App() {
       <header className="topbar">
         <div className="title">
           <h1>AI or Not — 可重排图像档案</h1>
-          <p className="muted">拖拽到三列，写下判断理由，点击「揭晓」查看对错与分数。</p>
         </div>
         <div className="controls">
           <button onClick={addItem}>+ 添加图片</button>
@@ -277,7 +266,7 @@ function Column({
     <div className="column" onDragOver={allowDrop} onDrop={(e)=>onDropColumn(e, col.id)}>
       <div className="colHeader"><strong>{col.name}</strong><span className="badge">{list.length}</span></div>
       <div className="grid droptarget">
-        {list.map((it, idx) => {
+        {list.map((it) => {
           const info = placed[it.id] || {};
           const guess = col.id==="ai" ? true : (col.id==="real" ? false : null);
           const isCorrect = revealed && guess!==null ? (guess===it.isAI) : null;

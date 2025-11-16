@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { INITIAL_ITEMS, REASONS } from "./data/items.js";
+import { INITIAL_ITEMS, REASONS } from "./data/item.js";
 
 const COLUMNS = [
   { id: "ai", name: "AI 生成" },

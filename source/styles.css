@@ -1,53 +1,83 @@
-:root{
-  --bg:#0b0b0b; --fg:#e5e5e5; --muted:#a9acb2;
-  --card:#15171b; --line:#2a2d33; --accent:#7fd1ae;
-  --ok:#1fbf71; --bad:#ff5b5b;
-  --radius:14px;
+/* 背景点点 */
+body {
+  margin: 0;
+  background-color: #ffffff;
+  background-image: radial-gradient(#000000 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-repeat: repeat;
 }
 
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Arial,sans-serif}
+.app {
+  padding: 40px 0;
+  min-height: 100vh;
+}
 
-.wrap{max-width:1200px;margin:0 auto;padding:24px}
-.topbar{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:16px}
-.title h1{margin:0;font-size:20px}
-.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-button{padding:8px 12px;border:1px solid var(--line);background:#111318;color:var(--fg);border-radius:10px;cursor:pointer}
-button.primary{background:var(--accent);color:#0a0d0c;border-color:transparent}
-button.ghost{background:transparent}
-label.import{border:1px dashed var(--line);padding:6px 10px;border-radius:10px;cursor:pointer}
-label.import input{display:none}
+/* 标题 */
+.title {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-weight: 900;
+  text-align: center;
+  font-size: 48px;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+}
 
-.board{display:grid;grid-template-columns:320px 1fr;gap:20px}
-.palette,.column{background:#0f1115;border:1px solid var(--line);border-radius:var(--radius);padding:14px}
-.palette h2{margin:0 0 8px 0;font-size:16px}
+/* 顶部图片展示区 */
+.gallery {
+  width: 90%;
+  margin: 0 auto 40px auto;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
-.droptarget{min-height:180px}
+/* 不裁切图片，展示全貌 */
+.gallery-img {
+  width: 100%;
+  height: auto;
+  max-height: 160px;
+  object-fit: contain; /* 看到整张图 */
+  background: white;
+  padding: 4px;
+  border: 1px solid #ccc;
+  cursor: grab;
+}
 
-.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px}
-.card .thumb{font-size:36px;margin-bottom:6px}
-.card .title{font-size:13px;color:var(--fg)}
-.card .actions{display:flex;gap:6px;margin-top:6px}
-.card.ok{outline:2px solid var(--ok)}
-.card.bad{outline:2px solid var(--bad)}
-.badgeResult{position:absolute;top:6px;right:6px;font-size:12px;padding:2px 6px;border-radius:999px;background:#182018}
-.badgeResult.ok{background:rgba(31,191,113,.15);color:var(--ok)}
-.badgeResult.bad{background:rgba(255,91,91,.15);color:var(--bad)}
+/* 分类区布局 */
+.categories-container {
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
 
-.colHeader{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.badge{background:#1a1d22;border:1px solid var(--line);padding:2px 8px;border-radius:999px;font-size:12px;color:var(--muted)}
+/* 分类盒子 */
+.category-box {
+  border: 2px solid black;
+  min-height: 220px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.65);
+}
 
-.meta{margin-top:8px;display:flex;flex-direction:column;gap:6px}
-.reasons{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:#111318;color:var(--muted)}
-.chip.on{color:#d7ffe9;border-color:var(--accent);outline:1px solid rgba(127,209,174,.35)}
-.notes{width:100%;min-height:56px;background:#0e1014;border:1px solid var(--line);border-radius:8px;color:var(--fg);padding:8px;font-size:12px}
+.category-box h2 {
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0 0 10px 0;
+}
 
-.scorebar{display:flex;gap:10px;align-items:center;margin-top:8px}
-.meter{flex:1;height:10px;background:#12151a;border:1px solid var(--line);border-radius:999px;overflow:hidden}
-.fill{height:100%;background:linear-gradient(90deg,var(--ok),#7fe8ca)}
-.scoretext{font-size:12px;color:var(--muted)}
+/* 分类盒子里放图片 */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
 
-.footer{margin-top:16px;font-size:12px}
-.hint{opacity:.6;border:1px dashed var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:24px 8px}
+.thumb {
+  width: 100%;
+  height: auto;
+  max-height: 80px;
+  object-fit: contain;
+  background: white;
+  padding: 2px;
+  border: 1px solid #ccc;
+}

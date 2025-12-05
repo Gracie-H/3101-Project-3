@@ -16,6 +16,8 @@ export default function App() {
     Slovenia: [],
   });
 
+  const [errorMsg, setErrorMsg] = useState("");
+
   function handleDragStart(e, item) {
     e.dataTransfer.setData("text/plain", JSON.stringify(item));
   }
@@ -24,25 +26,43 @@ export default function App() {
     e.preventDefault();
   }
 
-  function handleDrop(e, country) {
+  function handleDrop(e, targetCountry) {
     e.preventDefault();
     const item = JSON.parse(e.dataTransfer.getData("text/plain"));
 
-    // 移除未分类区
+    // 如果拖错了国家
+    if (item.country !== targetCountry) {
+      showError("Wrong country! Try again.");
+      return; // ❌ 不放进去
+    }
+
+    // 正确 → 从未分类区移除
     setUnsorted((prev) => prev.filter((x) => x.id !== item.id));
 
-    // 加入对应分类
+    // 放入正确分类
     setCategories((prev) => ({
       ...prev,
-      [country]: [...prev[country], item],
+      [targetCountry]: [...prev[targetCountry], item],
     }));
+  }
+
+  function showError(message) {
+    setErrorMsg(message);
+
+    // 2 秒后自动消失
+    setTimeout(() => {
+      setErrorMsg("");
+    }, 2000);
   }
 
   return (
     <div className="app">
       <h1 className="title">BRUTALIST MONUMENT CLASSIFIER</h1>
 
-      {/* 顶部随机图片 gallery */}
+      {/* 错误提示 */}
+      {errorMsg && <div className="error-popup">{errorMsg}</div>}
+
+      {/* 顶部图片 gallery */}
       <div className="gallery">
         {unsorted.map((b) => (
           <img
@@ -69,12 +89,7 @@ export default function App() {
 
             <div className="category-grid">
               {categories[country].map((b) => (
-                <img
-                  key={b.id}
-                  src={b.img}
-                  alt={b.country}
-                  className="thumb"
-                />
+                <img key={b.id} src={b.img} alt={b.country} className="thumb" />
               ))}
             </div>
           </div>

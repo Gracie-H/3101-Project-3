@@ -20,4 +20,11 @@ export const initialBuildings = [
   { id: 12, country: "Croatia",         img: imgPath(12) },
   { id: 13, country: "Serbia",          img: imgPath(13) },
   { id: 14, country: "Croatia",         img: imgPath(14) },
+  { id: 15, country: "Slovenia",        img: imgPath(15) },
+  { id: 16, country: "Montenegro",      img: imgPath(16) },
+  { id: 17, country: "Bosnia",          img: imgPath(17) },
+  { id: 18, country: "Serbia",          img: imgPath(18) },
+  { id: 19, country: "Slovenia",        img: imgPath(19) },
+  { id: 20, country: "Montenegro",      img: imgPath(20) },
+  { id: 21, country: "Serbia",          img: imgPath(21) },
 ];

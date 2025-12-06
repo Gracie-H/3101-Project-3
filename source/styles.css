@@ -28,7 +28,7 @@ body {
   width: 90%;
   margin: 0 auto 40px auto;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 16px;
 }
 

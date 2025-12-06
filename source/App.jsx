@@ -7,6 +7,7 @@ export default function App() {
     initialBuildings.sort(() => Math.random() - 0.5)
   );
 
+   // Category containers stored in a single structured object
   const [categories, setCategories] = useState({
     Croatia: [],
     Bosnia: [],
@@ -25,44 +26,50 @@ export default function App() {
   function allowDrop(e) {
     e.preventDefault();
   }
-
+// logic: incorrect-trigger error message. correct-add to category
   function handleDrop(e, targetCountry) {
     e.preventDefault();
     const item = JSON.parse(e.dataTransfer.getData("text/plain"));
 
-    // 如果拖错了国家
+    
     if (item.country !== targetCountry) {
-      showError("Wrong country! Try again.");
-      return; // ❌ 不放进去
+      showError("Region mismatch detected.");
+
+
+      return; 
     }
 
-    // 正确 → 从未分类区移除
+
+    // Remove from the unsorted group
     setUnsorted((prev) => prev.filter((x) => x.id !== item.id));
 
-    // 放入正确分类
+
     setCategories((prev) => ({
       ...prev,
       [targetCountry]: [...prev[targetCountry], item],
     }));
   }
 
-  function showError(message) {
-    setErrorMsg(message);
+  function showError() {
+    const banner = document.getElementById("error-banner");
+    if (!banner) return;
+  
+    banner.classList.add("show");
+  
 
-    // 2 秒后自动消失
     setTimeout(() => {
-      setErrorMsg("");
-    }, 2000);
+      banner.classList.remove("show");
+    }, 1200);
   }
+  
 
   return (
     <div className="app">
       <h1 className="title">BRUTALIST MONUMENT CLASSIFIER</h1>
 
-      {/* 错误提示 */}
       {errorMsg && <div className="error-popup">{errorMsg}</div>}
 
-      {/* 顶部图片 gallery */}
+
       <div className="gallery">
         {unsorted.map((b) => (
           <img
@@ -76,7 +83,7 @@ export default function App() {
         ))}
       </div>
 
-      {/* 分类区 */}
+
       <div className="categories-container">
         {Object.keys(categories).map((country) => (
           <div
@@ -95,6 +102,12 @@ export default function App() {
           </div>
         ))}
       </div>
+      <div id="error-banner" className="error-banner">
+  Region mismatch detected.
+</div>
+
     </div>
+    
+
   );
 }

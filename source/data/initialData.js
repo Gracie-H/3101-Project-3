@@ -1,9 +1,10 @@
-// source/data/initialData.js
 
 function imgPath(n) {
   return new URL(`../images/${n}.png`, import.meta.url).href;
 }
 
+// image logic
+// catagorize by the building from different country
 export const initialBuildings = [
   { id: 1,  country: "North Macedonia", img: imgPath(1) },
   { id: 2,  country: "Croatia",         img: imgPath(2) },

@@ -19,6 +19,8 @@ export default function App() {
 
   const [errorMsg, setErrorMsg] = useState("");
 
+
+  // drag
   function handleDragStart(e, item) {
     e.dataTransfer.setData("text/plain", JSON.stringify(item));
   }
@@ -26,6 +28,8 @@ export default function App() {
   function allowDrop(e) {
     e.preventDefault();
   }
+
+
 // logic: incorrect-trigger error message. correct-add to category
   function handleDrop(e, targetCountry) {
     e.preventDefault();
